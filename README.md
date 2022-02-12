@@ -111,7 +111,7 @@ $ mv -v example.crt "$(openssl x509 -subject_hash_old -noout -in example.crt)".0
 ```
 
 ### Adding certificates
-1. Copy the certificate file(s) to `/data/misc/user/0/cacerts-custom`.
+1. Copy the certificate file(s) to `/data/misc/user/0/cacerts-custom` (NOT located in your home directory).
 2. Reboot.
 
 ### Removing certificates
