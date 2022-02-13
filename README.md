@@ -10,7 +10,7 @@ What sets it apart from similar modules like [MagiskTrustUserCerts](https://gith
 - A terminal emulator with [Coreutils](https://www.gnu.org/software/coreutils/) and [OpenSSL](https://www.openssl.org) (e.g., [Cygwin](https://www.cygwin.com) or [MSYS2](https://www.msys2.org) on Windows)
 
 ### Installing the module
-1. Download the module from the [GitHub releases page](https://github.com/whalehub/custom-certificate-authorities/releases).
+1. Download the module from the [GitHub releases page](/../../releases).
 2. Install the module with Magisk.
 
 ### Preparing a folder for the certificates
