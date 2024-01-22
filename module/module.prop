@@ -1,7 +1,7 @@
-id=custom-certificate-authorities
+id=Custom-Certificate-Authorities
 name=Custom Certificate Authorities
-version=v1.0.1
-versionCode=101
+version=v1.1.0
+versionCode=110
 author=whalehub (admin@datahoarder.dev)
 description=This module adds custom certificate authorities from a pre-defined path on the Android file system to the system trust store.
-updateJson=https://github.com/whalehub/custom-certificate-authorities/releases/latest/download/updateJson.json
+updateJson=https://github.com/Loukious/Custom-Certificate-Authorities/releases/latest/download/updateJson.json
