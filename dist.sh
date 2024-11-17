@@ -18,8 +18,8 @@ rm -f ./dist/${ZIP_FILENAME}
   zip ../dist/${ZIP_FILENAME} -r * -x ".*" "*/.*"
 )
 
-RELEASE_URL="https://github.com/Loukious/Custom-Certificate-Authorities/releases/download/${VERSION}/${ZIP_FILENAME}"
-CHANGELOG_URL="https://raw.githubusercontent.com/Loukious/Custom-Certificate-Authorities/master/CHANGELOG.md"
+RELEASE_URL="https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/releases/download/${VERSION}/${ZIP_FILENAME}"
+CHANGELOG_URL="https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/master/CHANGELOG.md"
 
 echo "{
     \"version\": \"${VERSION}\",
