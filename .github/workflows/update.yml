@@ -64,14 +64,14 @@ jobs:
           }
           EOT
 
-      # Step 7: Commit and Push Changes
+      # Step 7: Commit and Push Changes (Doesn't fail if there's nothing to commit)
       - name: Commit and Push Changes
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add module.prop changelog.md update.json
-          git commit -m "Update to version ${{ env.version }}"
-          git push
+          git commit -m "Update to version ${{ env.version }}" || echo "No changes to commit"
+          git push || echo "No changes to push"
 
       # Step 8: Install zip Tool to Package Repository
       - name: Install zip
@@ -84,6 +84,7 @@ jobs:
           mkdir -p ./dist
           rm -f ./dist/${ZIP_FILENAME}
 
+          # Create a ZIP archive including only the specified files and directories
           zip -r ./dist/${ZIP_FILENAME} META-INF system post-fs-data.sh module.prop
 
       # Step 10: Create GitHub Release
@@ -91,7 +92,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.version }}
-          release_name: Custom Certificate Authorities v${{ env.version }}
           body: "Automated release of Custom Certificate Authorities v${{ env.version }}"
           files: ./dist/Custom_Certificate_Authorities_v${{ env.version }}.zip
         env:
