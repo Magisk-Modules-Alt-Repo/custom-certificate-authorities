@@ -1,6 +1,6 @@
 id=Custom-Certificate-Authorities
 name=Custom Certificate Authorities
-version=v1.1.0
+version=1.1.0
 versionCode=110
 author=whalehub & Loukious
 description=This module adds custom certificate authorities from a pre-defined path on the Android file system to the system trust store.

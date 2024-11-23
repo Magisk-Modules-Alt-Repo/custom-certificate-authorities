@@ -1,6 +1,6 @@
 {
-    "version": "v1.1.0",
-    "versionCode": 110,
-    "zipUrl": "https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/releases/download/v1.1.0/Custom-Certificate-Authorities-v1.1.0.zip",
-    "changelog": "https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/main/changelog.md"
+  "version": "1.1.0",
+  "versionCode": 110,
+  "zipUrl": "https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/releases/download/1.1.0/Custom_Certificate_Authorities_v1.1.0.zip",
+  "changelog": "https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/main/changelog.md"
 }
