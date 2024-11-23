@@ -1,0 +1,15 @@
+{
+    "icon": "https://www.optimum-web.com/wp-content/uploads/ssl-certificate.png",
+    "cover": "https://images.bizibl.com/sites/default/files/data-shield_850.png",
+    "categories": [
+        "Tools"
+    ],
+    "homepage": "https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities",
+    "support": "https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/issues",
+    "donate": "https://buymeacoffee.com/loukious",
+    "readme": "https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/refs/heads/master/README.md",
+    "root": {
+        "kernelsu": ">= 1.0.0",
+        "magisk": ">= 24.0"
+    }
+}
