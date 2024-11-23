@@ -1,0 +1,98 @@
+name: Manual Update and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The new version number (e.g., 1.1)"
+        required: true
+
+jobs:
+  update-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set Version Variables from Input
+      - name: Set Version Variables
+        id: set_version
+        run: |
+          version="${{ github.event.inputs.version }}"
+          version_code=$(echo $version | tr -d '.')  # Generate version code from version number by removing dots
+
+          echo "version=$version" >> $GITHUB_ENV
+          echo "version_code=$version_code" >> $GITHUB_ENV
+
+      # Step 3: Create Necessary Directories and Download update-binary
+      - name: Create META-INF Directory and Download update-binary
+        run: |
+          META_INF_PATH="./META-INF/com/google/android"
+          mkdir -p "${META_INF_PATH}"
+
+          # Download the update-binary script to the correct directory
+          curl -sSL "https://raw.githubusercontent.com/topjohnwu/Magisk/master/scripts/module_installer.sh" > "${META_INF_PATH}/update-binary"
+
+          # Create an empty updater-script with #MAGISK header
+          echo "#MAGISK" > "${META_INF_PATH}/updater-script"
+
+      # Step 4: Update Version Information in module.prop
+      - name: Update module.prop
+        run: |
+          sed -i "s/^version=.*/version=${{ env.version }}/" module.prop
+          sed -i "s/^versionCode=.*/versionCode=${{ env.version_code }}/" module.prop
+
+      # Step 5: Update changelog.md with new version
+      - name: Update changelog.md
+        run: |
+          sed -i "5s/^/## v${{ env.version }}\n- Added updates for the new release.\n\n/" changelog.md
+
+      # Step 6: Update update.json with new version details
+      - name: Update update.json
+        run: |
+          RELEASE_URL="https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/releases/download/${{ env.version }}/Custom_Certificate_Authorities_v${{ env.version }}.zip"
+          CHANGELOG_URL="https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/main/changelog.md"
+
+          cat <<EOT > update.json
+          {
+            "version": "${{ env.version }}",
+            "versionCode": ${{ env.version_code }},
+            "zipUrl": "${RELEASE_URL}",
+            "changelog": "${CHANGELOG_URL}"
+          }
+          EOT
+
+      # Step 7: Commit and Push Changes
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add module.prop changelog.md update.json
+          git commit -m "Update to version ${{ env.version }}"
+          git push
+
+      # Step 8: Install zip Tool to Package Repository
+      - name: Install zip
+        run: sudo apt-get install -y zip
+
+      # Step 9: Package Repository as Magisk Flashable ZIP
+      - name: Package Repository as Magisk Flashable ZIP
+        run: |
+          ZIP_FILENAME="Custom_Certificate_Authorities_v${{ env.version }}.zip"
+          mkdir -p ./dist
+          rm -f ./dist/${ZIP_FILENAME}
+
+          zip -r ./dist/${ZIP_FILENAME} META-INF system post-fs-data.sh module.prop
+
+      # Step 10: Create GitHub Release
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.version }}
+          release_name: Custom Certificate Authorities v${{ env.version }}
+          body: "Automated release of Custom Certificate Authorities v${{ env.version }}"
+          files: ./dist/Custom_Certificate_Authorities_v${{ env.version }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
