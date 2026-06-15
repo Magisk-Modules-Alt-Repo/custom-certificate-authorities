@@ -52,12 +52,12 @@ jobs:
       # Step 6: Update update.json with new version details
       - name: Update update.json
         run: |
-          RELEASE_URL="https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/releases/download/${{ env.version }}/Custom_Certificate_Authorities_v${{ env.version }}.zip"
+          RELEASE_URL="https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/releases/download/v${{ env.version }}/Custom_Certificate_Authorities_v${{ env.version }}.zip"
           CHANGELOG_URL="https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/main/changelog.md"
 
           cat <<EOT > update.json
           {
-            "version": "${{ env.version }}",
+            "version": "v${{ env.version }}",
             "versionCode": ${{ env.version_code }},
             "zipUrl": "${RELEASE_URL}",
             "changelog": "${CHANGELOG_URL}"
@@ -91,7 +91,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.version }}
+          tag_name: v${{ env.version }}
           body: "Automated release of Custom Certificate Authorities v${{ env.version }}"
           files: ./dist/Custom_Certificate_Authorities_v${{ env.version }}.zip
         env:
