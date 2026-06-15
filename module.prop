@@ -1,8 +1,8 @@
 id=Custom-Certificate-Authorities
 name=Custom Certificate Authorities
-version=1.1.0
-versionCode=110
+version=1.2.0
+versionCode=120
 author=whalehub & Loukious
-description=This module adds custom certificate authorities from a pre-defined path on the Android file system to the system trust store.
+description=Moves user-installed CA certificates to the system trust store with automatic DER-to-PEM conversion and full Android 14+ support (APEX + legacy paths).
 updateJson=https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/custom-certificate-authorities/refs/heads/master/update.json
 support=https://github.com/Magisk-Modules-Alt-Repo/Custom-Certificate-Authorities/issues
